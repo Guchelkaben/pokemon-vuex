@@ -10,8 +10,9 @@
                     <h1>My Team</h1>
                 </div>
             </div>
-            <pokemon-form></pokemon-form>
-            <dashboard></dashboard>
+            <pokemon-form class="mb-2"></pokemon-form>
+            <team-details></team-details>
+            <dashboard class="mt-2"></dashboard>
         </div>
     </div>
 </template>
@@ -19,11 +20,13 @@
 <script>
     import Dashboard from './components/dashboard/Dashboard.vue';
     import PokemonForm from './components/pokemon-form/PokemonForm.vue';
+    import TeamDetails from './components/team-details/TeamDetails.vue';
 
     export default {
         components: {
             Dashboard,
-            PokemonForm
+            PokemonForm,
+            TeamDetails
         }
     }
 </script>

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="inputPokemonName">Pokemon name</label>
-                    <input v-model="pokemon.name" type="text" class="form-control" id="inputPokemonName" placeholder="Enter pokemon name">
+                    <input v-model="pokemonName" type="text" class="form-control" id="inputPokemonName" placeholder="Enter pokemon name">
                 </div>
                 <div class="col-6 form-group">
                     <label for="inputPokemonType">Select Pokemon type</label>
@@ -20,6 +20,7 @@
 
 <script>
     import {mapMutations} from 'vuex';
+    import {cloneDeep} from 'lodash';
 
     export default {
         data() {
@@ -36,9 +37,19 @@
                 }
             };
         },
+        computed: {
+          pokemonName: {
+              set(newPokemon) {
+                this.pokemon.name = newPokemon.toLowerCase();
+              },
+              get() {
+                  return this.pokemon.name;
+              }
+          }
+        },
         methods: {
             onSubmit() {
-                this.addPokemon(this.pokemon);
+                this.addPokemon(cloneDeep(this.pokemon));
             },
 
             ...mapMutations(['addPokemon'])

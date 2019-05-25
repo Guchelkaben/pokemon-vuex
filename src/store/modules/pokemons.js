@@ -24,14 +24,20 @@ const getters = {
 
 const actions = {
     async fetchPokeData({commit}, pokename) {
+        console.log(pokename);
         const res = await pokemonData[pokename.toLowerCase()];
+        console.log("Res: ",res);
         commit('updatePokemon', res);
     }
 };
 
 const mutations = {
         updatePokemon: (state, pokemonData) => {
-            find(state.pokemons, ['name', pokemonData.name]).data = pokemonData;
+            const pokemon = find(state.pokemons, ['name', pokemonData.name]);
+            console.log("Pokemon: ",pokemon);
+            if(pokemon) {
+                pokemon.data = pokemonData;
+            }
         },
         addPokemon: (state, pokemon) => state.pokemons.push(pokemon)
     }

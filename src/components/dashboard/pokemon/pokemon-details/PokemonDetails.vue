@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div class="p-2" v-if="state !== 'init'">
-            <div>
-                <h2>00{{getPokemonByName(pokename).data.id}} - {{pokemonName}}</h2>
+        <div class="p-1" v-if="state !== 'init'">
+            <div class="mb-3">
+                <h2>{{convertPokeNumber(getPokemonByName(pokename).data.id)}} - {{pokemonName}}</h2>
             </div>
-            <div>
+            <div >
                 <ul class="list-group">
-                    <li class="list-group-item">Height: {{getPokemonByName(pokename).data.height}}</li>
-                    <li class="list-group-item">Weight: {{getPokemonByName(pokename).data.weight}}</li>
-                    <li class="list-group-item">Types: {{pokemonTypes}}</li>
+                    <li class="list-group-item py-2">Height: {{convertHeight(getPokemonByName(pokename).data.height)}}m</li>
+                    <li class="list-group-item py-2">Weight: {{convertHeight(getPokemonByName(pokename).data.weight)}}kg</li>
+                    <li class="list-group-item py-2">Type{{getPokemonByName(pokename).data.types.length > 1 ? 's' : ''}}: {{pokemonTypes}}</li>
                 </ul>
             </div>
         </div>
@@ -21,6 +21,8 @@
     import Spinner from './../../../spinner/Spinner.vue';
     import {mapActions, mapGetters} from 'vuex';
 
+    const max_poke_number_digits= 3;
+
     export default {
         props: ['pokename'],
         data() {
@@ -32,7 +34,20 @@
             await this.fetchPokeData(this.pokename);
             this.state = 'finish';
         },
-        methods: mapActions(['fetchPokeData']),
+        methods: {
+            ...mapActions(['fetchPokeData']),
+            convertHeight(height) {
+                return height / 10;
+            },
+            convertPokeNumber(number) {
+                if(max_poke_number_digits !== number.toString().length) {
+                    for(let i = 0; i <= (max_poke_number_digits - number.toString().length); i++) {
+                        number = `0${number}`;
+                    }
+                }
+                return number;
+            }
+        },
         computed: {
             ...mapGetters(['getPokemonByName']),
             pokemonName() {
@@ -52,5 +67,9 @@
 </script>
 
 <style scoped>
-
+    .pokemon-details-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
