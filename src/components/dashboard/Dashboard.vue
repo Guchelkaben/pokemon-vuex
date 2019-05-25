@@ -17,9 +17,6 @@
         },
         components: {
             pokemon: Pokemon
-        },
-        created() {
-//            this.fetchPokemons();
         }
     }
 </script>

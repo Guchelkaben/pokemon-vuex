@@ -1,7 +1,6 @@
 import pokemonData from 'pokemon-metadata';
 import {find} from 'lodash';
 
-/* eslint-disable */
 const state = {
     pokemons: [
         {
@@ -24,24 +23,27 @@ const getters = {
 
 const actions = {
     async fetchPokeData({commit}, pokename) {
-        console.log(pokename);
         const res = await pokemonData[pokename.toLowerCase()];
-        console.log("Res: ",res);
         commit('updatePokemon', res);
     }
 };
 
 const mutations = {
-        updatePokemon: (state, pokemonData) => {
-            const pokemon = find(state.pokemons, ['name', pokemonData.name]);
-            console.log("Pokemon: ",pokemon);
-            if(pokemon) {
-                pokemon.data = pokemonData;
-            }
-        },
-        addPokemon: (state, pokemon) => state.pokemons.push(pokemon)
+    updatePokemon: (state, pokemonData) => {
+        const pokemon = find(state.pokemons, ['name', pokemonData.name]);
+        if (pokemon) {
+            pokemon.data = pokemonData;
+        }
+    },
+    addPokemon: (state, pokemon) => state.pokemons.push(pokemon),
+    removePokemon: (state, pokemonName) => {
+        const index = state.pokemons
+            .map(pokemon => pokemon.name)
+            .indexOf(pokemonName);
+
+        state.pokemons.splice(index, 1);
     }
-;
+};
 
 export default {
     state,
