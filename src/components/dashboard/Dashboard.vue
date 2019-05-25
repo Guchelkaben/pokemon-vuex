@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <pokemon v-for="pokemon in allPokemons" :key="pokemon.id" class="col-6" :pokemon="pokemon"></pokemon>
+            <pokemon v-for="pokemon in allPokemons" :key="pokemon.id" class="col-6 p-1" :pokemon="pokemon"></pokemon>
         </div>
     </div>
 </template>
