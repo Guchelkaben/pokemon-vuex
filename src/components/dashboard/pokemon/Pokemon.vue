@@ -73,7 +73,7 @@
         height: 50px;
         z-index: 2;
         position: absolute;
-        right: 15px;
+        right: 0;
         top: 0;
         transform: scale(1);
         transition: transform .5s;
